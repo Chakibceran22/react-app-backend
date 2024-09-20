@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-
+const MONGOURL = 'mongodb+srv://trondio466:e8MKzhYXu19KjXZJ@test.fkyx9.mongodb.net/myDataBase';
 const app = express();
 
 // Middleware to parse JSON and handle CORS
@@ -10,7 +10,7 @@ app.use(cors());
 
 // MongoDB connection
 mongoose
-  .connect('mongodb://localhost:27017/mydatabase', {
+  .connect(MONGOURL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
