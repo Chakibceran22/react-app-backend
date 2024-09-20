@@ -1,21 +1,15 @@
-const express = require('express');
+// api/signup.js
 const mongoose = require('mongoose');
 const cors = require('cors');
-const MONGOURL = 'mongodb+srv://trondio466:e8MKzhYXu19KjXZJ@test.fkyx9.mongodb.net/myDataBase';
-const app = express();
 
-// Middleware to parse JSON and handle CORS
-app.use(express.json());
-app.use(cors());
+// MongoDB connection string (consider using an environment variable)
+const MONGOURL = process.env.MONGOURL || 'mongodb+srv://trondio466:e8MKzhYXu19KjXZJ@test.fkyx9.mongodb.net/myDataBase';
 
-// MongoDB connection
-mongoose
-  .connect(MONGOURL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => console.log('Connected to MongoDB'))
-  .catch((err) => console.error('Error connecting to MongoDB:', err));
+// Connect to MongoDB
+mongoose.connect(MONGOURL, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 // Define a schema for user data
 const userSchema = new mongoose.Schema({
@@ -28,21 +22,22 @@ const userSchema = new mongoose.Schema({
 const User = mongoose.model('User', userSchema);
 
 // API endpoint to handle signup requests
-app.post('/signup', async (req, res) => {
-  const { username, email, password } = req.body;
+export default async function handler(req, res) {
+  await cors()(req, res, async () => {
+    if (req.method === 'POST') {
+      const { username, email, password } = req.body;
 
-  try {
-    const newUser = new User({ username, email, password });
-    await newUser.save();
+      try {
+        const newUser = new User({ username, email, password });
+        await newUser.save();
 
-    res.status(201).json({ message: 'User created successfully', user: newUser });
-  } catch (error) {
-    res.status(500).json({ message: 'Error creating user', error });
-  }
-});
-
-// Start the server
-const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+        res.status(201).json({ message: 'User created successfully', user: newUser });
+      } catch (error) {
+        res.status(500).json({ message: 'Error creating user', error });
+      }
+    } else {
+      res.setHeader('Allow', ['POST']);
+      res.status(405).end(`Method ${req.method} Not Allowed`);
+    }
+  });
+}
