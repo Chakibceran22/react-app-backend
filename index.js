@@ -5,6 +5,7 @@ import path from 'path';
 import { config } from 'dotenv';
 import cors from 'cors';
 const MONGO_URI = "mongodb+srv://trondio466:e8MKzhYXu19KjXZJ@test.fkyx9.mongodb.net/myDataBase";
+import handler from "./api/signeUp.js";
 
 // 2. Initialize the app and load environment variables
 config(); // Load .env file into process.env
@@ -26,9 +27,7 @@ app.get('/api', (req, res) => {
 app.get('/', (req, res) => {
     res.send("Hello from the server");
     });
-    app.get("/api/signeup.js", (req, res) => {
-        res.send("Hello from the signe up page");
-        });
+    app.get("/api/signeup", handler);
 // Add additional routes, e.g., app.use('/api/users', userRoutes);
 
 // 6. Serve static files in production (for full-stack apps with React)

@@ -23,7 +23,7 @@ const userSchema = new mongoose.Schema({
 const User = mongoose.model('User', userSchema);
 
 // API endpoint to handle signup requests
-export default async function handler(req, res) {
+async function handler(req, res) {
   await cors()(req, res, async () => {
     if (req.method === 'POST') {
       const { username, email, password } = req.body;
@@ -42,3 +42,4 @@ export default async function handler(req, res) {
     }
   });
 }
+export default handler;
