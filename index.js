@@ -5,7 +5,7 @@ import path from 'path';
 import { config } from 'dotenv';
 import cors from 'cors';
 const MONGO_URI = "mongodb+srv://trondio466:e8MKzhYXu19KjXZJ@test.fkyx9.mongodb.net/myDataBase";
-import handler from "./api/signeUp.js";
+import handler from "./api/signeup.js";
 
 // 2. Initialize the app and load environment variables
 config(); // Load .env file into process.env
