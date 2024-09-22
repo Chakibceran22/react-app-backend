@@ -1,9 +1,10 @@
 // api/signup.js
-const mongoose = require('mongoose');
-const cors = require('cors');
+import mongoose from 'mongoose';
+import cors from 'cors';
+
 
 // MongoDB connection string (consider using an environment variable)
-const MONGOURL = process.env.MONGOURL || 'mongodb+srv://trondio466:e8MKzhYXu19KjXZJ@test.fkyx9.mongodb.net/myDataBase';
+const MONGOURL = 'mongodb+srv://trondio466:e8MKzhYXu19KjXZJ@test.fkyx9.mongodb.net/myDataBase';
 
 // Connect to MongoDB
 mongoose.connect(MONGOURL, {
