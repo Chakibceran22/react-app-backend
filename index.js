@@ -23,7 +23,12 @@ mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
 app.get('/api', (req, res) => {
   res.json({ message: 'Hello from API!' });
 });
-
+app.get('/', (req, res) => {
+    res.send("Hello from the server");
+    });
+    app.get("/api/signeup.js", (req, res) => {
+        res.send("Hello from the signe up page");
+        });
 // Add additional routes, e.g., app.use('/api/users', userRoutes);
 
 // 6. Serve static files in production (for full-stack apps with React)
