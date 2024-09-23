@@ -1,40 +1,26 @@
 // 1. Import dependencies
 import express from 'express';
-import mongoose from 'mongoose';
-import path from 'path';
-import { config } from 'dotenv';
 import cors from 'cors';
-const MONGO_URI = "mongodb+srv://trondio466:e8MKzhYXu19KjXZJ@test.fkyx9.mongodb.net/myDataBase";
 import User from './models/userModel.js';
 import connectionDB from './models/connectionModel.js';
+const PORT = process.env.PORT || 5000;
+import signeup from "./api/signeUp.js";
+import login from "./api/login.js";
 
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+
 connectionDB();
 
 app.get('/', (req, res) => {
     res.send('Server is ready');
 });
 
-app.post("/api/signeup",async (req, res) => {
-    try
-    {
-        const { username, email, password } = req.body;
-    const user = new User({
-        username,
-        email,
-        password,
-    });
-    const createdUser = await user.save();
-    res.send(createdUser);
-    }
-    catch (error)
-    {
-        res.status(404).send({ message: error.message });
-    }
-});
+app.use('/api/signeup', signeup);
+app.use('/api/login', login);
 
-app.listen(5000, () => {
-    console.log('Server at http://localhost:5000');
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
 });
