@@ -8,7 +8,9 @@ import signeup from "./api/signeUp.js";
 import login from "./api/login.js";
 
 const app = express();
-app.use(cors());
+app.use(cors({
+    origin: '*'
+}));
 app.use(express.json());
 
 
