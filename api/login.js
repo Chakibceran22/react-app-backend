@@ -3,7 +3,7 @@ import User from "../models/userModel.js";
 import express from "express";
 const router = express.Router();
 
-router.get("/", async (req, res) => {
+router.post("/", async (req, res) => {
     try {
         const { username, password } = req.body;
         const findUser = await User.findOne({ username });
