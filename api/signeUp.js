@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import User from "../models/userModel.js";
 import express from "express";
 const router = express.Router();
- 
+
 router.post("/", async (req, res) => {
     try {
         const { username, email, password } = req.body;

@@ -7,13 +7,17 @@ router.post("/", async (req, res) => {
     try {
         const { username, password } = req.body;
         const findUser = await User.findOne({ username });
-        if(findUser && findUser.password === password)
-        {
-            res.status(200).send(findUser);
+        if(findUser){
+            if(findUser.password === password){
+                res.send(findUser);
+            }
+            else{
+                res.send({message: "Invalid password. Please try again."});
+            }
         }
         else
         {
-            res.status(404).send({ message: "credentials not found" });
+            res.send({message: "Invalid usernam. Please try again."});
         }
     } catch (error) {
         res.status(404).send({ message: "Error while doing so" });
