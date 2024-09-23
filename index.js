@@ -9,7 +9,9 @@ import login from "./api/login.js";
 
 const app = express();
 app.use(cors({
-    origin: '*'
+    origin: '*',
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
 }));
 app.use(express.json());
 
